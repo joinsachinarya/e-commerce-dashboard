@@ -16,8 +16,9 @@ const SignUp = () => {
     }
   });
 
-  const collectData = async () => {
-    console.log(name, email, password);
+  const collectData = async (e) => {
+    e.preventDefult();
+    console.log(name, email, password, cpassword);
     let result = await fetch("http://localhost:5000/register", {
       method: "post",
       body: JSON.stringify({ name, email, password }),
@@ -48,6 +49,8 @@ const SignUp = () => {
               placeholder="Enter name"
               onChange={(e) => setName(e.target.value)}
               value={name}
+              required
+              autoComplete="off"
             />
           </Form.Group>
 
@@ -59,6 +62,8 @@ const SignUp = () => {
               placeholder="Enter email"
               onChange={(e) => setEmail(e.target.value)}
               value={email}
+              required
+              autoComplete="off"
             />
           </Form.Group>
 
@@ -70,6 +75,8 @@ const SignUp = () => {
               placeholder="Enter password"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
+              required
+              autoComplete="off"
             />
           </Form.Group>
 
@@ -81,6 +88,8 @@ const SignUp = () => {
               placeholder="Enter password"
               onChange={(e) => setCpassword(e.target.value)}
               value={cpassword}
+              required
+              autoComplete="off"
             />
           </Form.Group>
 
