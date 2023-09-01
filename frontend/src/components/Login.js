@@ -1,53 +1,62 @@
-import React, { useState } from "react";
-import { Form, Button, Container, Card } from "react-bootstrap";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-const LogIn = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  function handleLogIn(e) {
-    e.preventDefault();
-    console.log(email, password);
-  }
+const Login = () => {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    const auth = localStorage.getItem("user");
+    if (auth) {
+      navigate("/");
+    }
+  });
+
+  const handleLogin = async () => {
+    console.warn("email,password", email, password);
+    let result = await fetch("http://localhost:5000/login", {
+      method: "post",
+      body: JSON.stringify({ email, password }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    result = await result.json();
+    console.warn(result);
+    if (result.auth) {
+      localStorage.setItem("user", JSON.stringify(result.user));
+      localStorage.setItem("token", JSON.stringify(result.auth));
+      navigate("/");
+    } else {
+      alert("Please enter correct details!");
+    }
+  };
 
   return (
-    <Container className="log-in-container mt-4 w-25">
-      <Card className="p-3">
-        <Card.Title className="mb-2">Log In</Card.Title>
-        <Form className="log-in-form">
-          <Form.Group className="mt-3" controlId="email">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              type="email"
-              name="email"
-              placeholder="Enter email"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-            />
-          </Form.Group>
+    <div className="register">
+      <h1>Login</h1>
+      <input
+        className="inputBox"
+        type="text"
+        placeholder="Email"
+        onChange={(e) => setEmail(e.target.value)}
+        value={email}
+      />
 
-          <Form.Group className="mt-3" controlId="password">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              name="password"
-              placeholder="Enter password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-            />
-          </Form.Group>
+      <input
+        className="inputBox"
+        type="password"
+        placeholder="Password"
+        onChange={(e) => setPassword(e.target.value)}
+        value={password}
+      />
 
-          <Button
-            onClick={handleLogIn}
-            variant="success"
-            type="submit"
-            className="mt-3"
-          >
-            Log In
-          </Button>
-        </Form>
-      </Card>
-    </Container>
+      <button onClick={handleLogin} className="subutton" type="button">
+        Login
+      </button>
+    </div>
   );
 };
 
-export default LogIn;
+export default Login;
