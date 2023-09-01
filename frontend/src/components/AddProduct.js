@@ -7,13 +7,13 @@ const AddProduct = () => {
   const [company, setCompany] = React.useState("");
   const [error, setError] = React.useState("false");
   const addProduct = async () => {
-    console.warn(!name);
+    console.log(!name);
     if (!name || !price || !category || !company) {
       setError(true);
       return false;
     }
 
-    console.warn(name, price, category, company);
+    console.log(name, price, category, company);
     const userId = JSON.parse(localStorage.getItem("user"))._id;
     let result = await fetch("http://localhost:5000/add-product", {
       method: "post",
@@ -21,7 +21,7 @@ const AddProduct = () => {
       headers: { "Content-Type": "application/json" },
     });
     result = await result.json();
-    console.warn(result);
+    console.log(result);
   };
   return (
     <div className="addProduct">

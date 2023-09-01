@@ -5,6 +5,7 @@ const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [cpassword, setCpassword] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,7 +16,7 @@ const SignUp = () => {
   });
 
   const collectData = async () => {
-    console.warn(name, email, password);
+    console.log(name, email, password);
     let result = await fetch("http://localhost:5000/register", {
       method: "post",
       body: JSON.stringify({ name, email, password }),
@@ -24,7 +25,7 @@ const SignUp = () => {
       },
     });
     result = await result.json();
-    console.warn(result);
+    console.log(result);
 
     if (result) {
       navigate("/");
@@ -61,6 +62,13 @@ const SignUp = () => {
         placeholder="Password"
       />
 
+      <input
+        className="inputBox"
+        type="password"
+        value={cpassword}
+        onChange={(e) => setCpassword(e.target.value)}
+        placeholder="Confirm password"
+      />
       <button onClick={collectData} className="subutton" type="button">
         Sign Up
       </button>

@@ -14,7 +14,7 @@ const Login = () => {
   });
 
   const handleLogin = async () => {
-    console.warn("email,password", email, password);
+    console.log("email,password", email, password);
     let result = await fetch("http://localhost:5000/login", {
       method: "post",
       body: JSON.stringify({ email, password }),
@@ -23,7 +23,7 @@ const Login = () => {
       },
     });
     result = await result.json();
-    console.warn(result);
+    console.log(result);
     if (result.auth) {
       localStorage.setItem("user", JSON.stringify(result.user));
       localStorage.setItem("token", JSON.stringify(result.auth));

@@ -15,7 +15,7 @@ const ProductList = () => {
     result = await result.json();
     setProducts(result);
   };
-  console.warn("products", products);
+  console.log("products", products);
 
   const deleteProduct = async (id) => {
     let result = await fetch(`http://localhost:5000/product/${id}`, {
