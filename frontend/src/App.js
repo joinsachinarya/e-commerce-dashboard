@@ -1,4 +1,5 @@
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import Nav from "./components/Nav"; //importing nav.js file
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer";

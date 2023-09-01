@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Button, Card, Container, Form } from "react-bootstrap";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -35,44 +36,65 @@ const SignUp = () => {
   };
 
   return (
-    <div className="register">
-      <h1>Register</h1>
+    <Container className="sign-up-container mt-4 w-25">
+      <Card className="p-3">
+        <Card.Title className="mb-2">Register</Card.Title>
+        <Form className="sign-up-form">
+          <Form.Group className="mt-3" controlId="name">
+            <Form.Label>Name</Form.Label>
+            <Form.Control
+              type="text"
+              name="name"
+              placeholder="Enter name"
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+            />
+          </Form.Group>
 
-      <input
-        className="inputBox"
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Name"
-      />
+          <Form.Group className="mt-3" controlId="email">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="email"
+              name="email"
+              placeholder="Enter email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+            />
+          </Form.Group>
 
-      <input
-        className="inputBox"
-        type="text"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-      />
+          <Form.Group className="mt-3" controlId="password">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              name="password"
+              placeholder="Enter password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+            />
+          </Form.Group>
 
-      <input
-        className="inputBox"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-      />
+          <Form.Group className="mt-3" controlId="cpassword">
+            <Form.Label>Confirm password</Form.Label>
+            <Form.Control
+              type="password"
+              name="cpassword"
+              placeholder="Enter password"
+              onChange={(e) => setCpassword(e.target.value)}
+              value={cpassword}
+            />
+          </Form.Group>
 
-      <input
-        className="inputBox"
-        type="password"
-        value={cpassword}
-        onChange={(e) => setCpassword(e.target.value)}
-        placeholder="Confirm password"
-      />
-      <button onClick={collectData} className="subutton" type="button">
-        Sign Up
-      </button>
-    </div>
+          <Button
+            onClick={collectData}
+            variant="info"
+            type="submit"
+            className="mt-3"
+          >
+            Sign Up
+          </Button>
+        </Form>
+      </Card>
+    </Container>
   );
 };
 export default SignUp;

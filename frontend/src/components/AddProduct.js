@@ -29,7 +29,7 @@ const AddProduct = () => {
       <input
         type="text"
         placeholder="Enter product name"
-        className="inputBox"
+        className=""
         value={name}
         onChange={(e) => {
           setName(e.target.value);
@@ -41,7 +41,7 @@ const AddProduct = () => {
       <input
         type="text"
         placeholder="Enter product price"
-        className="inputBox"
+        className=""
         value={price}
         onChange={(e) => {
           setPrice(e.target.value);
@@ -53,7 +53,7 @@ const AddProduct = () => {
       <input
         type="text"
         placeholder="Enter product category"
-        className="inputBox"
+        className=""
         value={category}
         onChange={(e) => {
           setCategory(e.target.value);
@@ -65,7 +65,7 @@ const AddProduct = () => {
       <input
         type="text"
         placeholder="Enter product company"
-        className="inputBox"
+        className=""
         value={company}
         onChange={(e) => {
           setCompany(e.target.value);
