@@ -8,6 +8,7 @@ const Nav = () => {
     localStorage.clear();
     navigate("/signup");
   };
+
   return (
     <div>
       {auth ? (
@@ -49,4 +50,4 @@ const Nav = () => {
   );
 };
 
-export default Nav; //exporting nav.js file
+export default Nav;
