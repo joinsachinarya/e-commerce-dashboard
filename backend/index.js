@@ -57,7 +57,6 @@ app.get("/products", async (req, res) => {
   } else {
     res.send({ result: "No product found" });
   }
-  res.send({ Res: "Hey from backend" });
 });
 
 app.delete("/product/:id", async (req, res) => {
