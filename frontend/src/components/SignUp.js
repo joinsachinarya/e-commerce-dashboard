@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Card, Container, Form } from "react-bootstrap";
+import { Button, Card, Container, Form, Alert } from "react-bootstrap";
+import * as Yup from "yup";
 
 const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cpassword, setCpassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,26 +16,48 @@ const SignUp = () => {
     if (auth) {
       navigate("/");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const validationSchema = Yup.object({
+    name: Yup.string().required("Name is required"),
+    email: Yup.string().email("Invalid email").required("Email is required"),
+    password: Yup.string().required("Password is required"),
+    cpassword: Yup.string().oneOf(
+      [Yup.ref("password"), null],
+      "Passwords must match"
+    ),
   });
 
   const collectData = async (e) => {
-    e.preventDefult();
-    console.log(name, email, password, cpassword);
-    let result = await fetch("http://localhost:5000/register", {
-      method: "post",
-      body: JSON.stringify({ name, email, password }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    result = await result.json();
-    console.log(result);
+    e.preventDefault();
 
-    if (result) {
+    try {
+      await validationSchema.validate({ name, email, password, cpassword });
+
+      let result = await fetch("http://localhost:5000/register", {
+        method: "post",
+        body: JSON.stringify({ name, email, password }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!result.ok) {
+        setError("Registration failed");
+      }
+
+      result = await result.json();
+      localStorage.setItem("user", JSON.stringify(result.result));
+      localStorage.setItem("token", JSON.stringify(result.auth));
       navigate("/");
+    } catch (err) {
+      if (err instanceof Yup.ValidationError) {
+        setError("Validation error");
+      } else {
+        setError("Registration failed");
+      }
     }
-    localStorage.setItem("user", JSON.stringify(result.result));
-    localStorage.setItem("token", JSON.stringify(result.auth));
   };
 
   return (
@@ -50,7 +74,6 @@ const SignUp = () => {
               onChange={(e) => setName(e.target.value)}
               value={name}
               required
-              autoComplete="off"
             />
           </Form.Group>
 
@@ -63,7 +86,6 @@ const SignUp = () => {
               onChange={(e) => setEmail(e.target.value)}
               value={email}
               required
-              autoComplete="off"
             />
           </Form.Group>
 
@@ -76,7 +98,6 @@ const SignUp = () => {
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               required
-              autoComplete="off"
             />
           </Form.Group>
 
@@ -89,10 +110,13 @@ const SignUp = () => {
               onChange={(e) => setCpassword(e.target.value)}
               value={cpassword}
               required
-              autoComplete="off"
             />
           </Form.Group>
-
+          {error ? (
+            <Alert variant="danger" className="mt-3">
+              {error}
+            </Alert>
+          ) : null}
           <Button
             onClick={collectData}
             variant="info"
@@ -106,4 +130,5 @@ const SignUp = () => {
     </Container>
   );
 };
+
 export default SignUp;
