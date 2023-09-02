@@ -8,7 +8,7 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cpassword, setCpassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -66,48 +66,56 @@ const SignUp = () => {
         <Card.Title className="mb-2">Register</Card.Title>
         <Form className="sign-up-form">
           <Form.Group className="mt-3" controlId="name">
-            <Form.Label>Name</Form.Label>
             <Form.Control
               type="text"
               name="name"
               placeholder="Enter name"
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => {
+                setName(e.target.value);
+                setError(null);
+              }}
               value={name}
               required
             />
           </Form.Group>
 
           <Form.Group className="mt-3" controlId="email">
-            <Form.Label>Email</Form.Label>
             <Form.Control
               type="email"
               name="email"
               placeholder="Enter email"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setError(null);
+              }}
               value={email}
               required
             />
           </Form.Group>
 
           <Form.Group className="mt-3" controlId="password">
-            <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
               name="password"
               placeholder="Enter password"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setError(null);
+              }}
               value={password}
               required
             />
           </Form.Group>
 
           <Form.Group className="mt-3" controlId="cpassword">
-            <Form.Label>Confirm password</Form.Label>
             <Form.Control
               type="password"
               name="cpassword"
-              placeholder="Enter password"
-              onChange={(e) => setCpassword(e.target.value)}
+              placeholder="Confirm password"
+              onChange={(e) => {
+                setCpassword(e.target.value);
+                setError(null);
+              }}
               value={cpassword}
               required
             />

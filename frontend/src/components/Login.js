@@ -5,7 +5,7 @@ import { Card, Button, Container, Form, Alert } from "react-bootstrap";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -42,7 +42,6 @@ const Login = () => {
         <Card.Title className="mb-2">Login</Card.Title>
         <Form className="log-in-form">
           <Form.Group className="mt-3" controlId="email">
-            <Form.Label>Email</Form.Label>
             <Form.Control
               className=""
               name="email"
@@ -56,7 +55,6 @@ const Login = () => {
             />
           </Form.Group>
           <Form.Group className="mt-3" controlId="password">
-            <Form.Label>Password</Form.Label>
             <Form.Control
               className=""
               name="password"
