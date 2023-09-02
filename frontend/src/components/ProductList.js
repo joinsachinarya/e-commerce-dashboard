@@ -75,7 +75,7 @@ const ProductList = () => {
                 </Container>
                 <Container className="m-3">
                   <Button
-                    onClick={deleteProduct}
+                    onClick={() => deleteProduct(product._id)}
                     variant="danger"
                     style={{ marginRight: "3rem" }}
                   >
@@ -89,7 +89,9 @@ const ProductList = () => {
             );
           })
         ) : (
-          <Card.Title>No Product!</Card.Title>
+          <Card.Title className="mt-5">
+            No products, please add some products!
+          </Card.Title>
         )}
       </div>
     </div>
