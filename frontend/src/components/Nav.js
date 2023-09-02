@@ -8,6 +8,9 @@ const Nav = () => {
     localStorage.clear();
     navigate("/signup");
   };
+  function logoClicked() {
+    navigate("/");
+  }
 
   return (
     <div className="bg-info">
@@ -17,15 +20,14 @@ const Nav = () => {
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKenO0TeUMklxuwahgc1jnTJFYCmIh2B5u8Oc3KVnM9lQH-6J7JF6D&usqp=CAE&s"
             alt="logo"
             className="logo"
+            onClick={logoClicked}
           />
+
           <li>
-            <Link to="/">Product</Link>
+            <Link to="/">Products</Link>
           </li>
           <li>
             <Link to="/add">Add Product</Link>
-          </li>
-          <li>
-            <Link to="/update">Update Product</Link>
           </li>
           <li>
             <Link to="/profile">Profile</Link>

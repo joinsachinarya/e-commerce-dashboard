@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Button, Card, Container, Form, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const ProductList = () => {
@@ -15,7 +16,6 @@ const ProductList = () => {
     result = await result.json();
     setProducts(result);
   };
-  console.log("products", products);
 
   const deleteProduct = async (id) => {
     let result = await fetch(`http://localhost:5000/product/${id}`, {
@@ -42,46 +42,56 @@ const ProductList = () => {
 
   return (
     <div className="product-list">
-      <h6>List of Product</h6>
-      <input
+      <Form.Control
         type="text"
         placeholder="Search product"
         className="search"
         onChange={searchHandle}
-      ></input>
-      <ul>
-        <li>S. No</li>
-        <li>Name</li>
-        <li>Price</li>
-        <li>Category</li>
-        <li>Company</li>
-        <li>Operation</li>
-      </ul>
-      {products.length > 0 ? (
-        products.map((item, index) => (
-          <ul>
-            <li>{index + 1}</li>
-            <li>{item.name}</li>
-            <li>{item.price}</li>
-            <li>{item.category}</li>
-            <li>{item.company}</li>
-            <li>
-              <button
-                onClick={() => {
-                  deleteProduct(item._id);
-                }}
+      />
+      <Card.Title className="mt-4">All Products 👇</Card.Title>
+      <div className="row products">
+        {products.length > 0 ? (
+          products.map((product, index) => {
+            return (
+              <Card
+                key={index}
+                className="product-card w-25 m-4 display-inline"
               >
-                Delete
-              </button>
-              <Link to={"/update/" + item._id} className="update">
-                Update
-              </Link>
-            </li>
-          </ul>
-        ))
-      ) : (
-        <h6>No result found!</h6>
-      )}
+                <Image
+                  src={product.image}
+                  style={{
+                    height: "10rem",
+                    marginTop: "1rem",
+                    borderRadius: "8px",
+                  }}
+                />
+                <Container className=" p-4">
+                  <div>Name: {product.name}</div>
+                  <div>Price: ${product.price}</div>
+                  <div>
+                    <span>Category: {product.category} | </span>
+                    <span>Company: {product.company}</span>
+                  </div>
+                </Container>
+                <Container className="m-3">
+                  <Button
+                    onClick={deleteProduct}
+                    variant="danger"
+                    style={{ marginRight: "3rem" }}
+                  >
+                    Delete
+                  </Button>
+                  <Link to={"update/" + product._id}>
+                    <Button>Update</Button>
+                  </Link>
+                </Container>
+              </Card>
+            );
+          })
+        ) : (
+          <Card.Title>No Product!</Card.Title>
+        )}
+      </div>
     </div>
   );
 };

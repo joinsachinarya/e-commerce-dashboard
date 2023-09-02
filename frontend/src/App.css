@@ -18,6 +18,8 @@
   width: 40px;
   float: left;
   border-radius: 50%;
+  border: 5px solid skyblue;
+  cursor: pointer;
 }
 .footer {
   position: absolute;
@@ -36,25 +38,19 @@
 }
 .product-list {
   text-align: center;
+  margin: 2rem;
+}
+.products {
+  display: flex;
+  justify-content: center;
 }
 
-.product-list ul {
-  font-size: 12px;
-  padding: 15px;
-  margin: -30px;
+.product-card {
+  display: inline;
 }
-.product-list ul li {
-  display: inline-block;
-  width: 10%;
-  padding: 10px;
-}
-.update {
-  text-decoration: none;
-}
+
 .search {
-  margin: 30px;
-  padding: 10px;
-  width: 20%;
+  margin-top: 2rem;
 }
 
 .footer {
